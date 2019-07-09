@@ -1,0 +1,45 @@
+﻿@model IdentitySample.Models.ApplicationUser
+
+@{
+    /**/
+
+    ViewBag.Title = "Details";
+}
+
+    <div class="bg-dark p-4">
+        <h4>Detalhes do Utilizador</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                <span>Login:</span>
+            </dt>
+            <dd>
+                <span> @Html.DisplayFor(model => model.UserName)</span>
+            </dd>
+        </dl>
+
+        <h4>Role do Utilizador</h4>
+        @if (ViewBag.RoleNames.Count == 0)
+        {
+            <hr />
+            <p>No roles found for this user.</p>
+        }
+
+        <table class="table text-white">
+
+            @foreach (var item in ViewBag.RoleNames)
+            {
+                <tr>
+                    <td>
+                        <span>@item</span>
+                    </td>
+                </tr>
+            }
+        </table>
+        <p>
+            @Html.ActionLink("Editar Roles", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm" })
+        </p>
+        <hr />
+    </div>
+@Html.ActionLink("Voltar atrás", "Index", null, new { @class = "btn btn-sm btn-light" })
+

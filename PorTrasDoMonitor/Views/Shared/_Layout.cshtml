@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Por Trás do Monitor</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a href="@Url.Action("Index","Noticias",new {categoria="" })" class="navbar-brand">Por Trás do Monitor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categorias
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @Html.Action("Categorias", "Noticias")
+                    </div>
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Sobre", "About", "Noticias", null, new { @class = "nav-link" })
+                </li>
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin")))
+                {
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Gestão <b class="caret"></b></a>
+                        <div class="dropdown-menu text-white">
+                            @Html.ActionLink("Administração", "Index", "UsersAdmin", null, new { @style = "color:black;", @class = "nav-link" })
+                            @Html.ActionLink("Categorias", "Index", "Categorias", null, new { @style = "color:black;", @class = "nav-link" })
+                        </div>
+                    </li>
+                }
+
+            </ul>
+            @Html.Partial("_LoginPartial")
+
+            <form method="get" action="@Url.Action("Search","Noticias")" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Titulo" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+            </form>
+            @if (Request.IsAuthenticated)
+            {
+                <a class="btn btn-danger" href="javascript:document.getElementById('logoutForm').submit()">Sair!</a>
+            }
+        </div>
+    </nav>
+
+   
+
+
+
+
+
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Date.Year - Por Trás do Monitor</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,27 @@
+﻿@model PorTrasDoMonitor.Models.Noticias
+@{
+    /**/
+
+    Layout = null;
+}
+<div>
+    <h4>Comentários</h4>
+    <hr />
+    @foreach (var comentario in Model.ListaComentarios.ToList())
+    {
+    <div class="listaComentarios" style="display:flex;flex-direction:column">
+       
+        <p style="font-weight:bold"> <img class="img-circle img-responsive" src="~/imagens/Avatares/@comentario.Utilizador.Avatar" style="float:left;height:75px;width:75px;margin-right:5px" />@comentario.Utilizador.Nome</p>
+                <p>@comentario.Descricao</p>
+        @if (User.IsInRole("Admin") || User.IsInRole("Jornalista") || User.Identity.Name.Equals(comentario.Utilizador.Username))
+        {
+            using (Html.BeginForm("Delete", "Comentarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(c=> comentario.ID)
+                <input type="submit" formmethod="post" value="X" class="btn btn-danger" onclick="return confirm('Deseja apagar: @comentario.Descricao?');"/>
+            }
+        }
+    </div>
+    }
+</div>

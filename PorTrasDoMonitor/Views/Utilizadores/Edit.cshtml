@@ -1,0 +1,88 @@
+﻿@model PorTrasDoMonitor.Models.Utilizadores
+
+@{
+    ViewBag.Title = "Editar Utilizador";
+
+}
+
+
+
+
+
+@using (Html.BeginForm("Edit", "Utilizadores", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal bg-dark p-4">
+        <h4>Editar Perfil</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataNascimento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DataNascimento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(n => n.Avatar)
+            <input type="file"
+                   class="btn btn-info btn-sm"
+                   name="avatarUpload"
+                   style=""
+                   accept=".jpg"
+                   onchange="atulizaImagemEdit(event)" />
+        </div>
+        <div>
+            <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#conteudo"> Preview da Imagem </button>
+            <div class="collapse" id="conteudo">
+                <div class="well">
+                    <img src="~/imagens/Noticias/@Html.DisplayFor(c=>c.Avatar)" class="img-thumbnail" id="imgCapa" />
+                </div>
+            </div>
+
+        </div>
+        <hr />
+        <div class="form-group">
+
+            <input type="submit" value="Confirmar" class="btn btn-success btn-sm" />
+        </div>
+    </div>
+}
+<div>
+    <a class="btn btn-sm btn-light" href=@Url.Action("Index","Noticias")>
+        Página Inicial
+    </a>
+</div>
+<script>
+    //atualiza o preview da imagem
+    var atulizaImagemEdit = function (event) {
+
+        // referencia à tag <img />
+        var img = document.getElementById('imgCapa');
+        // altera o 'src' da <img /> para o da imagem carregada
+        img.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

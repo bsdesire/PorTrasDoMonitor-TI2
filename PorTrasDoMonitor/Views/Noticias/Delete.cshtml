@@ -1,0 +1,22 @@
+﻿@model PorTrasDoMonitor.Models.Noticias
+
+@{
+    ViewBag.Title = "Delete";
+}
+@if (User.IsInRole("Admin") && Request.IsAuthenticated) {
+
+
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <h3>Tem a certeza que deseja apagar esta noticia?</h3>
+        <input type="submit" value="Apagar noticia" class="btn btn-danger btn-sm" onclick="return confirm('Deseja apagar: @Model.Titulo?');" />
+        @Html.ActionLink("Voltar ao inicio", "Index", null, new { @class="btn btn-sm btn-light" })
+    </div>
+    }
+</div>
+}

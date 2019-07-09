@@ -1,0 +1,6 @@
+﻿@model IEnumerable<PorTrasDoMonitor.Models.Categorias>
+
+@foreach (var categoria in Model)
+{
+<a class="dropdown-item text-black" href="@Url.Action("Index","Noticias",new { categoria= Html.DisplayFor(c => categoria.TipoCategoria)})" name="@Html.DisplayFor(c => categoria.TipoCategoria)">@Html.DisplayFor(c => categoria.TipoCategoria)</a>
+}

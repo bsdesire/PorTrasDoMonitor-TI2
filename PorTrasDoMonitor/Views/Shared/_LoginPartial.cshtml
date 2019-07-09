@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav-item form-inline" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ActionLink("Bem vindo " + Session["NomeUser"] + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Editar", @class = "nav-link text-white" })
+    }
+}
+else
+{
+    @Html.ActionLink("Registar", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link text-white" })
+    @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link text-white" })
+}

@@ -1,0 +1,87 @@
+﻿body {
+    background-color: #2e3338;
+    color:#fff;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.divConteudo{
+    font-size:20px;
+}
+.comentario {
+    background-image: url('../imagens/Avatares/comment.jpeg');
+}
+.lblNome{
+    font-size:30px;
+}
+.lblUser{
+    font-size:25px;
+}
+
+.btnEdit {
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.btnRemove {
+    top: 0;
+    right: 0;
+    position: absolute;
+}
+
+.comments {
+
+}
+
+.pagination li {
+
+}
+
+
+.pagination a {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff !important;
+    background-color: #2d2d2d;
+    border: 1px solid #007bff;
+}
+
+.pagination active a {
+    color: #000 !important;
+}
+

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<IdentitySample.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Utilizadores</h2>
+
+
+<table class="table bg-dark p-4">
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center text-white" style="border-top:none;">
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td class="text-center text-white" style="border-top:none;">
+                @Html.ActionLink("Editar Utilizador", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" }) |
+                @Html.ActionLink("Detalhes do Utilizador", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" }) 
+            </td>
+        </tr>
+    }
+
+</table>

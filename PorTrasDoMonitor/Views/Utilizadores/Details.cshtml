@@ -1,0 +1,37 @@
+﻿@model PorTrasDoMonitor.Models.Utilizadores
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+<div>
+    
+    <hr />
+    <div class="container bg-dark p-4">
+        <div class="row" style="display:flex;">
+            <div class="col-md-12">
+                <img src="~/imagens/Avatares/@Html.DisplayFor(u=>u.Avatar)" style="height:auto;width:125px" />
+            </div>
+            <br />
+            <div class="col-md-12">
+                @Html.LabelFor(d => d.Nome, new { @class = "" })
+                <span> : @Html.DisplayFor(d => d.Nome, new { @class = "" })</span>
+                <br />
+                @Html.LabelFor(d => d.DataNascimento, new { @class = "" })
+                <span> : @Html.DisplayFor(d => d.DataNascimento)</span>
+                <br />
+                @Html.LabelFor(d => d.Descricao, new { @class = "" })
+                <span> : @Html.DisplayFor(d => d.Descricao)</span>
+                <br />
+                <a class="btn btn-sm btn-warning" href="@Url.Action("Edit", "Utilizadores", new { id = Model.ID })">Editar Perfil</a>
+                <a class="btn btn-sm btn-warning" href="@Url.Action("ChangePassword","Manage")">Alterar Password</a>
+            </div>
+
+
+            
+
+        </div>
+   </div>
+    <br />
+</div>
+

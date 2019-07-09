@@ -1,0 +1,62 @@
+﻿@model PorTrasDoMonitor.Models.Noticias
+
+
+
+
+    <div class="card divNoticias">
+        @if (Request.IsAuthenticated && User.IsInRole("Admin,Jornalista"))
+        {
+            <h1>@Html.ActionLink("Editar", "Edit", new { id = Model.ID })</h1>
+        }
+
+        <img class="card-img-top" src="~/imagens/Noticias/@Html.DisplayFor(n=>n.Capa)" style="object-fit:fill;width:100%;height:500px;" />
+        <h2 class="text-center alert alert-dark">@Html.DisplayTextFor(n => n.Titulo)</h2>
+        <hr />
+        <div class="card-body">
+            <p class="text-dark text-justify text-center" style="font-weight:bold;font-size:24px">@Html.DisplayTextFor(n => n.Descricao)</p>
+            <br />
+            <div class="text-dark text-justify divConteudo">
+                @Html.Raw(Html.Encode(Model.Conteudo).Replace(Environment.NewLine, "<br/>"))
+                <hr />
+                <h5>@Html.DisplayFor(n => n.Data) @Html.DisplayFor(n => n.Utilizador.Nome)</h5>
+            </div>
+        </div>
+        @*<h1>@Html.ActionLink("Voltar atrás", "Index")</h1>*@
+        <hr />
+        <div class="text-dark ml-5 mr-5">
+            @Html.Partial("_FormComentarios", new PorTrasDoMonitor.Models.Comentarios { NoticiasFK = Model.ID })
+            <h4 style="font-weight:bold;font-size:50px">Comentários</h4>
+            <hr />
+            @foreach (var comentario in Model.ListaComentarios)
+            {
+                <div>
+                    <div class="listaComentarios" style="display:flex;flex-direction:column">
+                        
+                        <p style="font-weight:bold"> 
+                        <img class="img-circle img-responsive" src="~/imagens/Avatares/@comentario.Utilizador.Avatar" style="height:25px;width:25px;margin-right:5px" />
+
+                        @comentario.Utilizador.Nome
+                        </p>
+                        <p>@Html.Raw(Html.Encode(comentario.Descricao).Replace(Environment.NewLine, "<br/>"))</p>
+                        <span>
+                            @Html.DisplayFor(c => comentario.Data)
+
+                                                @if (User.IsInRole("Admin") || User.IsInRole("Jornalista") || User.Identity.Name.Equals(comentario.Utilizador.Username))
+                                                {
+                                                    using (Html.BeginForm("Delete", "Comentarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        @Html.HiddenFor(c => comentario.ID)
+                                                        <input type="submit" formmethod="post" value="X" class="btn btn-danger btn-sm" onclick="return confirm('Deseja apagar: @comentario.Descricao?');" />
+                                                    }
+                                                }
+
+
+                                            </span>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+

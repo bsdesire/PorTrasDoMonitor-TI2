@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PorTrasDoMonitor.Models.Categorias>
+
+@{
+    ViewBag.Title = "Categorias";
+}
+
+
+
+
+<table class="table bg-dark">
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center text-white" style="border-top:none;">
+                <span> @Html.DisplayFor(modelItem => item.TipoCategoria)</span>
+            </td>
+            <td style="border-top:none;">
+                @Html.ActionLink("Editar Categoria", "Edit", new { id = item.ID }, new { @class = "btn btn-warning btn-sm" }) |
+                @Html.ActionLink("Apagar Categoria", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-sm" })
+            </td>
+        </tr>
+    }
+
+
+</table>
+@Html.ActionLink("Nova Categoria", "Create", null, new { @class = "btn btn-success btn-sm" })

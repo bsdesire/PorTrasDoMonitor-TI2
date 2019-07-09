@@ -1,0 +1,62 @@
+﻿@*
+    @model IEnumerable<PorTrasDoMonitor.Models.Noticias>
+*@
+@using PorTrasDoMonitor.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<PorTrasDoMonitor.Models.Noticias>
+
+
+@{
+    ViewBag.Title = "Notícias";
+}
+
+
+@if (User.IsInRole("Admin") && Request.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Criar uma nova Notícia ", "Create", null, new { @class="btn btn-success btn-block" })
+    </p>
+}
+
+<div class="container" style="padding-top:5px;">
+    <div class="row" style="">
+        @foreach (var noticia in Model)
+        {
+            <div class="col-md-4 d-flex align-items-stretch" style="margin-bottom:20px;">
+                <div class="card text-white bg-dark" style="width: 22rem;">
+                    <img src="~/imagens/Noticias/@Html.DisplayTextFor(n => noticia.Capa)" class="card-img-top" alt="..." style="max-height: 189px;">
+                    <div class="card-body">
+                        <a href="@Url.Action("Details","Noticias",new { id =noticia.ID})" class="">
+                            <h5 class="card-title">@Html.DisplayTextFor(n => noticia.Titulo)</h5>
+
+                        </a>
+                        <p class="card-text">
+                            @Html.DisplayTextFor(n => noticia.Descricao)
+                        </p>
+                        <a href="@Url.Action("Details","Noticias",new { id = noticia.ID })" style="margin-bottom:15px;">
+                            <a class="badge badge-secondary comments" aria-hidden="true">Comentários: @noticia.ListaComentarios.Count()</a>
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <br />
+                        <div style="margin-top:25px;">
+                        @Html.ActionLink("Editar", "Edit", new { id = noticia.ID }, new { @class = "btn btn-primary btnEdit btn-sm" })
+                        @Html.ActionLink("Remover", "Delete", new { id = noticia.ID }, new { @class = "btn btn-danger btnRemove btn-sm" })
+                        </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <br />
+    <span class="badge badge-primary">Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount</span>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, categoria = Session["categoria"] }))
+
+
+
+</div>

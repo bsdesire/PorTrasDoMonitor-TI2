@@ -1,0 +1,14 @@
+﻿@model IdentitySample.Models.IndexViewModel
+@{
+    ViewBag.Title = "Dados do Utilizador";
+
+}
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <div>
+        @Html.Action("Details", "Utilizadores", new { id = Session["UtizlizadorID"] })
+    </div>
+   
+
+</div>
